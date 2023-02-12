@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,13 +12,17 @@ class Main extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Wireless Communication Project',
-      theme: ThemeData(),
+      theme: ThemeData(
+        useMaterial3: false,
+        colorSchemeSeed: Colors.deepPurpleAccent,
+      ),
       debugShowCheckedModeBanner: false,
-      initialRoute: WelcomeScreen.routeName,
+      initialRoute: RegistrationScreen.routeName,
       routes: {
         WelcomeScreen.routeName: (context) => const WelcomeScreen(),
         LoginScreen.routeName: (context) => const LoginScreen(),
         RegistrationScreen.routeName: (context) => const RegistrationScreen(),
+        HomeScreen.routeName: (context) => const HomeScreen(),
       },
     );
   }
@@ -43,12 +48,303 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class RegistrationScreen extends StatelessWidget {
+enum Gender { male, female }
+
+class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
   static const routeName = "/registration";
 
   @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  // Variables of inputs
+  String _fullName = "";
+
+  String _username = "";
+
+  String _email = "";
+
+  String _password = "";
+
+  Gender _gender = Gender.female;
+
+  bool _isHidingPassword = true;
+
+  DateTime _dob = DateTime(2023);
+
+  SizedBox _spacing() => const SizedBox(height: 15);
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Card(
+              elevation: 4,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(22)),
+              ),
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      /// -- ! Create Account Title
+                      ///
+                      Text(
+                        "Create an Account",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      _spacing(),
+
+                      /// Full name Field
+                      ///
+                      TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        onSaved: (newValue) {
+                          _fullName = newValue ?? "";
+                        },
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.contact_page),
+                          label: const Text("Fullname"),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade400,
+                              width: 1,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      _spacing(),
+
+                      /// Username Field
+                      ///
+                      TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        onSaved: (newValue) {
+                          _username = newValue ?? "";
+                        },
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.person),
+                          label: const Text("Username"),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade400,
+                              width: 1,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      _spacing(),
+
+                      /// Email Field
+                      ///
+                      TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        onSaved: (newValue) {
+                          _email = newValue ?? "";
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.email_rounded),
+                          label: const Text("Email"),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade400,
+                              width: 1,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      _spacing(),
+
+                      /// Password Field
+                      ///
+                      TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        onSaved: (newValue) {
+                          _password = newValue ?? "";
+                        },
+                        obscureText: _isHidingPassword,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.key),
+                          suffixIcon: _isHidingPassword
+                              ? IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _isHidingPassword = !_isHidingPassword;
+                                    });
+                                  },
+                                  icon: const Icon(Icons.remove_red_eye),
+                                  splashColor: Colors.transparent,
+                                )
+                              : IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _isHidingPassword = !_isHidingPassword;
+                                    });
+                                  },
+                                  icon: const Icon(Icons.panorama_fish_eye),
+                                  splashColor: Colors.transparent,
+                                ),
+                          label: const Text("Password"),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade400,
+                              width: 1,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      _spacing(),
+
+                      /// Gender Selection
+                      ///
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _gender = Gender.female;
+                              });
+                            },
+                            icon: Icon(
+                              color: _gender == Gender.female
+                                  ? Colors.pinkAccent
+                                  : Colors.grey,
+                              Icons.female_rounded,
+                              size: 35,
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _gender = Gender.male;
+                              });
+                            },
+                            icon: Icon(
+                              color: _gender == Gender.male
+                                  ? Colors.blueAccent
+                                  : Colors.grey,
+                              Icons.male_rounded,
+                              size: 35,
+                            ),
+                          )
+                        ],
+                      ),
+                      _spacing(),
+
+                      /// -- Registration Button
+                      ///
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // validate the input
+                            _formKey.currentState?.validate();
+
+                            // navigate to home page if valid
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
+                          ),
+                          child: const Text(
+                            "REGISTER",
+                            style: TextStyle(letterSpacing: 1),
+                          ),
+                        ),
+                      ),
+
+                      /// -- Login Navigation
+                      ///
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Already have an account?",
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              // Navigate to sign in screen
+                            },
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateProperty.resolveWith(
+                                  (states) => Colors.grey.shade200),
+                              shape: MaterialStateProperty.resolveWith(
+                                (states) => const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(99),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            child: const Text("Sign in"),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+  static const routeName = "/home";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Homepage'),
+      ),
+      body: Container(),
+    );
   }
 }
