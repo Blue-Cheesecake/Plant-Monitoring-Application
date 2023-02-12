@@ -75,12 +75,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool _isHidingPassword = true;
 
   DateTime _dob = DateTime(2023);
+  int _age = DateTime.now().year - 2023;
 
   SizedBox _spacing() => const SizedBox(height: 15);
+
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(251, 251, 251, 1),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -106,56 +126,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           color: Theme.of(context).colorScheme.primary,
                           fontSize: 28,
                           fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      _spacing(),
-
-                      /// Full name Field
-                      ///
-                      TextFormField(
-                        validator: (value) {
-                          return null;
-                        },
-                        onSaved: (newValue) {
-                          _fullName = newValue ?? "";
-                        },
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.contact_page),
-                          label: const Text("Fullname"),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey.shade400,
-                              width: 1,
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
-                        ),
-                      ),
-                      _spacing(),
-
-                      /// Username Field
-                      ///
-                      TextFormField(
-                        validator: (value) {
-                          return null;
-                        },
-                        onSaved: (newValue) {
-                          _username = newValue ?? "";
-                        },
-                        keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.person),
-                          label: const Text("Username"),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.grey.shade400,
-                              width: 1,
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                          ),
                         ),
                       ),
                       _spacing(),
@@ -230,6 +200,74 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       _spacing(),
 
+                      Divider(
+                        thickness: 0.5,
+                        color: Colors.grey.shade400,
+                      ),
+                      _spacing(),
+
+                      /// -- ! Create Account Title
+                      ///
+                      Text(
+                        "Personal Info",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      _spacing(),
+
+                      /// Full name Field
+                      ///
+                      TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        onSaved: (newValue) {
+                          _fullName = newValue ?? "";
+                        },
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.contact_page),
+                          label: const Text("Fullname"),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade400,
+                              width: 1,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      _spacing(),
+
+                      /// Username Field
+                      ///
+                      TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        onSaved: (newValue) {
+                          _username = newValue ?? "";
+                        },
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.person),
+                          label: const Text("Username"),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade400,
+                              width: 1,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      _spacing(),
+
                       /// Gender Selection
                       ///
                       Row(
@@ -241,6 +279,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 _gender = Gender.female;
                               });
                             },
+                            splashRadius: 1,
                             icon: Icon(
                               color: _gender == Gender.female
                                   ? Colors.pinkAccent
@@ -255,6 +294,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 _gender = Gender.male;
                               });
                             },
+                            splashRadius: 1,
                             icon: Icon(
                               color: _gender == Gender.male
                                   ? Colors.blueAccent
@@ -263,6 +303,90 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               size: 35,
                             ),
                           )
+                        ],
+                      ),
+                      _spacing(),
+
+                      /// Date of Birth field
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              "Date of Birth",
+                              style: TextStyle(
+                                fontSize: 19,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 13,
+                                    vertical: 7,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    border: Border.all(
+                                        width: 0.8,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary),
+                                  ),
+                                  child: Text(
+                                    "${_dob.month}-${_dob.day}-${_dob.year}",
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w400,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () => _showDialog(
+                                    CupertinoDatePicker(
+                                      initialDateTime: _dob,
+                                      mode: CupertinoDatePickerMode.date,
+                                      maximumDate: DateTime.now(),
+                                      use24hFormat: true,
+                                      // This is called when the user changes the time.
+                                      onDateTimeChanged: (DateTime newTime) {
+                                        setState(() {
+                                          _dob = newTime;
+                                          _age =
+                                              DateTime.now().year - _dob.year;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  splashRadius: 25,
+                                  icon: Icon(
+                                    Icons.date_range_rounded,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  "Age: $_age",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                       _spacing(),
