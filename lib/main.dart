@@ -34,7 +34,69 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 135,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Plant Watering App",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 49,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 1.2,
+                    fontStyle: FontStyle.italic,
+                    foreground: Paint()
+                      ..shader = const LinearGradient(
+                        colors: <Color>[
+                          Colors.deepPurpleAccent,
+                          Colors.pinkAccent,
+                          //add more color here.
+                        ],
+                      ).createShader(
+                          const Rect.fromLTWH(0.0, 0.0, 500.0, 100.0)),
+                  ),
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(LoginScreen.routeName),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 50,
+                          vertical: 15,
+                        ),
+                        child: Text(
+                          "Sign In",
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // Add Sign Up here
+                  ],
+                ),
+                Container(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
