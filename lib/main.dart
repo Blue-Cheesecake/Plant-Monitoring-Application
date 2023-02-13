@@ -14,7 +14,7 @@ class Main extends StatelessWidget {
       title: 'Wireless Communication Project',
       theme: ThemeData(
         useMaterial3: false,
-        colorSchemeSeed: Colors.deepPurpleAccent,
+        colorSchemeSeed: const Color.fromRGBO(140, 245, 241, 1),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: WelcomeScreen.routeName,
@@ -41,24 +41,24 @@ class WelcomeScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20,
-              vertical: 135,
+              vertical: 180,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Plant Watering App",
+                  "Plant Monitoring \n Application",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 49,
                     fontWeight: FontWeight.w800,
                     letterSpacing: 1.2,
-                    fontStyle: FontStyle.italic,
+                    // fontStyle: FontStyle.italic,
                     foreground: Paint()
                       ..shader = const LinearGradient(
                         colors: <Color>[
-                          Colors.deepPurpleAccent,
-                          Colors.pinkAccent,
+                          Colors.lightBlue,
+                          Colors.green,
                           //add more color here.
                         ],
                       ).createShader(
@@ -68,6 +68,25 @@ class WelcomeScreen extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    ElevatedButton(
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(RegistrationScreen.routeName),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 46,
+                          vertical: 15,
+                        ),
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () => Navigator.of(context)
                           .pushNamed(LoginScreen.routeName),
