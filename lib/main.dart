@@ -17,7 +17,7 @@ class Main extends StatelessWidget {
         colorSchemeSeed: Colors.deepPurpleAccent,
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: RegistrationScreen.routeName,
+      initialRoute: WelcomeScreen.routeName,
       routes: {
         WelcomeScreen.routeName: (context) => const WelcomeScreen(),
         LoginScreen.routeName: (context) => const LoginScreen(),
@@ -38,13 +38,192 @@ class WelcomeScreen extends StatelessWidget {
   }
 }
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
   static const routeName = "/login";
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  String _emailDto = "";
+
+  String _passwordDto = "";
+
+  bool _isHidingPassword = true;
+
+  SizedBox _spacing() => const SizedBox(height: 15);
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Card(
+              elevation: 4,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(22)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      /// -- ! Signin Title
+                      ///
+                      Text(
+                        "Sign in",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      _spacing(),
+                      _spacing(),
+
+                      /// Email Field
+                      ///
+                      TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        onSaved: (newValue) {
+                          _emailDto = newValue ?? "";
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.email_rounded),
+                          label: const Text("Email"),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade400,
+                              width: 1,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      _spacing(),
+
+                      /// Password Field
+                      ///
+                      TextFormField(
+                        validator: (value) {
+                          return null;
+                        },
+                        onSaved: (newValue) {
+                          _passwordDto = newValue ?? "";
+                        },
+                        obscureText: _isHidingPassword,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.key),
+                          suffixIcon: _isHidingPassword
+                              ? IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _isHidingPassword = !_isHidingPassword;
+                                    });
+                                  },
+                                  icon: const Icon(Icons.remove_red_eye),
+                                  splashColor: Colors.transparent,
+                                )
+                              : IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _isHidingPassword = !_isHidingPassword;
+                                    });
+                                  },
+                                  icon: const Icon(Icons.panorama_fish_eye),
+                                  splashColor: Colors.transparent,
+                                ),
+                          label: const Text("Password"),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey.shade400,
+                              width: 1,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      _spacing(),
+
+                      /// -- Sign in Button
+                      ///
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // validate the input
+                            _formKey.currentState?.validate();
+
+                            // navigate to home page if valid
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
+                          ),
+                          child: const Text(
+                            "SIGN IN",
+                            style: TextStyle(letterSpacing: 1),
+                          ),
+                        ),
+                      ),
+
+                      /// -- Registration Navigation
+                      ///
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Not have an account?",
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              // Navigate to register screen
+                            },
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateProperty.resolveWith(
+                                  (states) => Colors.grey.shade200),
+                              shape: MaterialStateProperty.resolveWith(
+                                (states) => const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(99),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            child: const Text("Create one"),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -128,6 +307,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
+                      _spacing(),
                       _spacing(),
 
                       /// Email Field
