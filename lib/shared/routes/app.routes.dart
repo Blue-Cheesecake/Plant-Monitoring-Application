@@ -1,4 +1,6 @@
 import 'package:wireless_project/views/home.view.dart';
+import 'package:wireless_project/views/plant_info.view.dart';
+import 'package:wireless_project/views/plants.view.dart';
 import 'package:wireless_project/views/sign_in.view.dart';
 import 'package:wireless_project/views/sign_up.view.dart';
 
@@ -8,5 +10,7 @@ class AppRoutes {
     HomeView.routeName: (context) => const HomeView(),
     SignInView.routeName: (context) => const SignInView(),
     SignUpView.routeName: (context) => const SignUpView(),
+    PlantsView.routeName: (context) => const PlantsView(),
+    PlantInfoView.routeName: (context) => const PlantInfoView(),
   };
 }

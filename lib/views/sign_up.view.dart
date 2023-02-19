@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wireless_project/models/user_regist.model.dart';
 import 'package:wireless_project/utils/enums/gender.dart';
-import 'package:wireless_project/views/sign_in/sign_in.view.dart';
+import 'package:wireless_project/views/sign_in.view.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({Key? key}) : super(key: key);
