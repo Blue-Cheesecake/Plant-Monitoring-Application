@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:wireless_project/models/user_dto.dart';
-import 'package:wireless_project/views/sign_up_screen.dart';
+import 'package:wireless_project/models/user_dto.model.dart';
+import 'package:wireless_project/views/sign_up.view.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+class SignInView extends StatefulWidget {
+  const SignInView({Key? key}) : super(key: key);
   static const routeName = "/sign-in";
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignInView> createState() => _SignInViewState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignInViewState extends State<SignInView> {
   final _formKey = GlobalKey<FormState>();
 
-  final _userDto = UserDto();
+  final _userDto = UserDtoModel();
 
   bool _isHidingPassword = true;
 
@@ -175,7 +175,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             onPressed: () {
                               // Navigate to register screen
                               Navigator.of(context)
-                                  .pushNamed(SignUpScreen.routeName);
+                                  .pushNamed(SignUpView.routeName);
                             },
                             style: ButtonStyle(
                               overlayColor: MaterialStateProperty.resolveWith(

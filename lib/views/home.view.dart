@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wireless_project/views/sign_in_screen.dart';
-import 'package:wireless_project/views/sign_up_screen.dart';
+import 'package:wireless_project/views/sign_in.view.dart';
+import 'package:wireless_project/views/sign_up.view.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
-  static const routeName = "/welcome";
+class HomeView extends StatelessWidget {
+  const HomeView({Key? key}) : super(key: key);
+  static const routeName = "/home";
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +43,8 @@ class WelcomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(SignUpScreen.routeName),
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed(SignUpView.routeName),
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 46,
@@ -62,8 +62,8 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(SignInScreen.routeName),
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed(SignInView.routeName),
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 50,

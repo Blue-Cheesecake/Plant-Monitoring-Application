@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:wireless_project/utils/enums/gender.dart';
 
-class UserRegist {
+class UserRegistModel {
   String fullName = "";
   String username = "";
   String email = "";

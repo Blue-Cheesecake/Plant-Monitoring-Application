@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-class UserDto {
+class UserDtoModel {
   String email = "";
   String password = "";
 

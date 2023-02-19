@@ -1,21 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:wireless_project/models/user_regist.dart';
+import 'package:wireless_project/models/user_regist.model.dart';
 import 'package:wireless_project/utils/enums/gender.dart';
-import 'package:wireless_project/views/sign_in_screen.dart';
+import 'package:wireless_project/views/sign_in/sign_in.view.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class SignUpView extends StatefulWidget {
+  const SignUpView({Key? key}) : super(key: key);
   static const routeName = "/sign-up";
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpViewState extends State<SignUpView> {
   final _formKey = GlobalKey<FormState>();
 
-  final _userRegist = UserRegist();
+  final _userRegist = UserRegistModel();
 
   bool _isHidingPassword = true;
 
@@ -391,7 +391,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onPressed: () {
                               // Navigate to sign in screen
                               Navigator.of(context)
-                                  .pushNamed(SignInScreen.routeName);
+                                  .pushNamed(SignInView.routeName);
                             },
                             style: ButtonStyle(
                               overlayColor: MaterialStateProperty.resolveWith(
