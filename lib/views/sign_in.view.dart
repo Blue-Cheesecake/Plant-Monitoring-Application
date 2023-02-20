@@ -18,8 +18,6 @@ class _SignInViewState extends State<SignInView> {
 
   final _userDto = UserDtoModel();
 
-  final bool _isHidingPassword = true;
-
   SizedBox _spacing() => const SizedBox(height: 15);
 
   @override

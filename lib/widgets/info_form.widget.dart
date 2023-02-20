@@ -25,7 +25,13 @@ class InfoFormWidget extends StatelessWidget {
           vertical: 16,
         ),
         prefixIcon: Icon(iconData),
-        label: Text(title),
+        label: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 14,
+            color: Colors.black,
+          ),
+        ),
         border: OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.grey.shade400,

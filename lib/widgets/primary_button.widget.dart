@@ -18,7 +18,7 @@ class PrimaryButtonWidget extends StatelessWidget {
           backgroundColor: AppTheme.color.secondaryGreen,
           padding: const EdgeInsets.symmetric(vertical: 15),
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
+            borderRadius: BorderRadius.all(Radius.circular(11)),
           ),
         ),
         child: Text(

@@ -28,6 +28,10 @@ class AppTheme {
         fontSize: 25,
         fontWeight: FontWeight.bold,
       ),
+      headline4: const TextStyle(
+        color: Colors.black,
+        fontSize: 20,
+      ),
     ),
   );
 }

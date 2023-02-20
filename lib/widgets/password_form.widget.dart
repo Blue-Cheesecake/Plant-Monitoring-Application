@@ -25,7 +25,7 @@ class _PasswordFormWidgetState extends State<PasswordFormWidget> {
       obscureText: _isHidingPassword,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.key),
+        prefixIcon: const Icon(Icons.key_rounded),
         contentPadding: const EdgeInsets.symmetric(
           vertical: 16,
         ),
@@ -48,7 +48,13 @@ class _PasswordFormWidgetState extends State<PasswordFormWidget> {
                 icon: const Icon(Icons.panorama_fish_eye),
                 splashColor: Colors.transparent,
               ),
-        label: const Text("Password"),
+        label: const Text(
+          "Password",
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.black,
+          ),
+        ),
         border: OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.grey.shade400,
