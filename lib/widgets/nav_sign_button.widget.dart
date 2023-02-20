@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:wireless_project/shared/theme/app.theme.dart';
 
-class SignButton extends StatelessWidget {
-  const SignButton({
+class NavSignButtonWidget extends StatelessWidget {
+  const NavSignButtonWidget({
     Key? key,
     required this.title,
     required this.destinationRoute,
@@ -27,7 +26,7 @@ class SignButton extends StatelessWidget {
       },
       child: Text(
         title,
-        style: GoogleFonts.montserrat(
+        style: TextStyle(
           color: AppTheme.color.primaryGreen,
           fontSize: 20,
           fontWeight: FontWeight.w700,

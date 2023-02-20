@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wireless_project/views/sign_in.view.dart';
 import 'package:wireless_project/views/sign_up.view.dart';
-import 'package:wireless_project/widgets/sign_button.dart';
+import 'package:wireless_project/widgets/nav_sign_button.widget.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -25,12 +25,12 @@ class HomeView extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline1,
                   ),
                   const SizedBox(height: 30),
-                  const SignButton(
+                  const NavSignButtonWidget(
                     title: "Sign Up",
                     destinationRoute: SignUpView.routeName,
                   ),
                   const SizedBox(height: 21),
-                  const SignButton(
+                  const NavSignButtonWidget(
                     title: "Sign In",
                     destinationRoute: SignInView.routeName,
                   ),
