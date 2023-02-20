@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:wireless_project/shared/theme/app.theme.dart';
+import 'package:wireless_project/views/device_regist.view.dart';
+import 'package:wireless_project/widgets/log_out_button.widget.dart';
 
 class PlantsView extends StatelessWidget {
   const PlantsView({super.key});
@@ -6,6 +10,55 @@ class PlantsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppTheme.color.lightGreen,
+        leading: const SizedBox.shrink(),
+        actions: const [
+          LogOutButtonWidget(),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+          top: 36,
+          left: 47,
+          right: 47,
+        ),
+        child: Column(
+          children: [
+            Center(
+              child: Text(
+                "My plants",
+                style: Theme.of(context).textTheme.headline2,
+              ),
+            ),
+
+            // TODO: Insert grid here
+            //
+          ],
+        ),
+      ),
+      floatingActionButton: SizedBox(
+        height: 80,
+        width: 80,
+        child: FittedBox(
+          child: FloatingActionButton(
+            onPressed: () {
+              // Show modal buttom sheet
+              showCupertinoModalBottomSheet(
+                context: context,
+                builder: (context) => DeviceRegistView(),
+              );
+            },
+            backgroundColor: AppTheme.color.primaryGreen,
+            child: const Icon(
+              Icons.add,
+              size: 30,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wireless_project/models/user_dto.model.dart';
+import 'package:wireless_project/views/plants.view.dart';
 import 'package:wireless_project/views/sign_up.view.dart';
 import 'package:wireless_project/widgets/info_form.widget.dart';
 import 'package:wireless_project/widgets/password_form.widget.dart';
@@ -90,6 +91,9 @@ class _SignInViewState extends State<SignInView> {
                         _userDto.logCurrentInfo();
 
                         // TODO: Log in and navigate to home page if valid
+                        // FIXME: This is just temporary entering plants view without any validation
+                        // Please use firebase to improve this
+                        Navigator.of(context).pushNamed(PlantsView.routeName);
                       }),
 
                       /// -- Registration Navigation
