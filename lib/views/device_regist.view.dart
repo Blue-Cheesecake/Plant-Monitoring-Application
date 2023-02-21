@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:wireless_project/models/device_regist.model.dart';
 import 'package:wireless_project/shared/theme/app.theme.dart';
+import 'package:wireless_project/widgets/image_picker.widget.dart';
 import 'package:wireless_project/widgets/info_form.widget.dart';
 import 'package:wireless_project/widgets/primary_button.widget.dart';
 
@@ -59,6 +62,17 @@ class DeviceRegistView extends StatelessWidget {
                           _deviceRegist.plantName = newValue ?? "";
                         },
                       ),
+                      _spacing(),
+                      _spacing(),
+
+                      const Text(
+                        "Plant pictures (if any)",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      _spacing(),
+                      ImagePickerWidget((xFile) {
+                        _deviceRegist.imageUrl = File(xFile.path);
+                      }),
                       _spacing(),
                       _spacing(),
 
