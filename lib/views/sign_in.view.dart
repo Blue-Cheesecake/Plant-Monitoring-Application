@@ -82,7 +82,11 @@ class _SignInViewState extends State<SignInView> {
                       ///
                       PrimaryButtonWidget("SIGN IN", () {
                         // validate the input
-                        _formKey.currentState?.validate();
+                        bool isValid = _formKey.currentState!.validate();
+
+                        if (!isValid) {
+                          return;
+                        }
 
                         // save
                         _formKey.currentState?.save();
@@ -94,7 +98,7 @@ class _SignInViewState extends State<SignInView> {
                         // FIXME: This is just temporary entering plants view without any validation
                         // Please use firebase to improve this
                         Navigator.of(context).pushNamed(PlantsView.routeName);
-                      }),
+                      }, willBeDelayed: true),
 
                       /// -- Registration Navigation
                       ///

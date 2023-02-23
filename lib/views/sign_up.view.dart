@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wireless_project/models/user_regist.model.dart';
 import 'package:wireless_project/utils/enums/gender.dart';
+import 'package:wireless_project/views/plants.view.dart';
 import 'package:wireless_project/views/sign_in.view.dart';
 import 'package:wireless_project/widgets/date_picker.widget.dart';
 import 'package:wireless_project/widgets/gender_picker.widget.dart';
@@ -136,7 +137,11 @@ class _SignUpViewState extends State<SignUpView> {
                         "SIGN UP",
                         () {
                           // validate the input
-                          _formKey.currentState?.validate();
+                          bool isValid = _formKey.currentState!.validate();
+
+                          if (!isValid) {
+                            return;
+                          }
 
                           // saving
                           _formKey.currentState?.save();
@@ -145,7 +150,11 @@ class _SignUpViewState extends State<SignUpView> {
                           _userRegist.logCurrentInfo();
 
                           // TODO: navigate to home page if valid
+                          // FIXME: This is just temporary entering plants view without any validation
+                          // Please use firebase to improve this
+                          Navigator.of(context).pushNamed(PlantsView.routeName);
                         },
+                        willBeDelayed: true,
                       ),
 
                       /// -- Login Navigation
