@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "334542386090",
+    "project_id": "plant-monitoring-7517f",
+    "storage_bucket": "plant-monitoring-7517f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334542386090:android:aa579c33fd23e5287f31d3",
+        "android_client_info": {
+          "package_name": "com.nipphit_sinut.wireless_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334542386090-quiskmiss0lk2kshvqfpp1n7r9lnnovn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGKvFdUe0kqd826O7kPHKPxDHCktGzlQQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334542386090-quiskmiss0lk2kshvqfpp1n7r9lnnovn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
