@@ -19,9 +19,25 @@ class UserRegistModel {
         'User name: $username\n'
         'Email    : $email\n'
         'Password : $password\n'
-        'Gender   : $gender\n'
+        'Gender   : ${gender.name}\n'
         'Dob      : ${dob.toString()}\n'
         'Age      : $age\n',
         time: DateTime.now());
+  }
+
+  bool isAllEmpty() {
+    return fullName.isEmpty &&
+        username.isEmpty &&
+        email.isEmpty &&
+        password.isEmpty;
+  }
+
+  @override
+  int get hashCode => email.hashCode ^ password.hashCode;
+
+  @override
+  // ignore: unnecessary_overrides
+  bool operator ==(Object other) {
+    return super == other;
   }
 }

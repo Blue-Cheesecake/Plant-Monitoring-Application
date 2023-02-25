@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wireless_project/models/user_regist.model.dart';
 import 'package:wireless_project/utils/enums/gender.dart';
+import 'package:wireless_project/view_models/authentication.view_model.dart';
 import 'package:wireless_project/views/plants.view.dart';
 import 'package:wireless_project/views/sign_in.view.dart';
 import 'package:wireless_project/widgets/date_picker.widget.dart';
@@ -19,8 +20,15 @@ class SignUpView extends StatefulWidget {
 
 class _SignUpViewState extends State<SignUpView> {
   final _formKey = GlobalKey<FormState>();
-
   final _userRegist = UserRegistModel();
+  late AuthenticationViewModel _authenticationViewModel;
+  bool _isRegistValid = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _authenticationViewModel = AuthenticationViewModel(context);
+  }
 
   SizedBox _spacing() => const SizedBox(height: 15);
 
@@ -135,7 +143,7 @@ class _SignUpViewState extends State<SignUpView> {
                       ///
                       PrimaryButtonWidget(
                         "SIGN UP",
-                        () {
+                        () async {
                           // validate the input
                           bool isValid = _formKey.currentState!.validate();
 
@@ -143,19 +151,41 @@ class _SignUpViewState extends State<SignUpView> {
                             return;
                           }
 
+                          setState(() {
+                            _isRegistValid = true;
+                          });
+
                           // saving
                           _formKey.currentState?.save();
 
                           // Logging
                           _userRegist.logCurrentInfo();
 
-                          // TODO: navigate to home page if valid
-                          // FIXME: This is just temporary entering plants view without any validation
-                          // Please use firebase to improve this
-                          Navigator.of(context).pushNamed(PlantsView.routeName);
+                          bool isEmailValid = await _authenticationViewModel
+                              .signUp(_userRegist);
+                          setState(() {
+                            _isRegistValid = isEmailValid;
+                          });
+                          if (_isRegistValid) {
+                            // ignore: use_build_context_synchronously
+                            Navigator.of(context)
+                                .pushNamed(PlantsView.routeName);
+                          }
                         },
                         willBeDelayed: true,
                       ),
+                      if (!_isRegistValid) _spacing(),
+                      if (!_isRegistValid)
+                        const Center(
+                          child: Text(
+                            "The email is already in-used or it is invalid",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
 
                       /// -- Login Navigation
                       ///

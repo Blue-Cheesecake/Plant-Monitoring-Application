@@ -15,4 +15,13 @@ class UserDtoModel {
   bool isAllEmpty() {
     return email.isEmpty && password.isEmpty;
   }
+
+  @override
+  int get hashCode => email.hashCode ^ password.hashCode;
+
+  @override
+  // ignore: unnecessary_overrides
+  bool operator ==(Object other) {
+    return super == other;
+  }
 }
