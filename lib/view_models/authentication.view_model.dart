@@ -30,6 +30,7 @@ class AuthenticationViewModel {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: userDto.email, password: userDto.password);
       _authenticationProvider.setUser(userCredential.user);
+      log("Successfully Login");
 
       return true;
     } on FirebaseAuthException catch (e) {
@@ -46,5 +47,6 @@ class AuthenticationViewModel {
   Future<void> signOut() async {
     await _auth.signOut();
     _authenticationProvider.setUser(null);
+    log("Signed out");
   }
 }
