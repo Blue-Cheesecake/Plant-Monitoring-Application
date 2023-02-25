@@ -106,8 +106,6 @@ class _SignInViewState extends State<SignInView> {
                         // Logging
                         _userDto.logCurrentInfo();
 
-                        // FIXME: It navigate to plant view regardless of validation. Validate first
-                        // Please use firebase to improve this
                         bool isEmailPassValid =
                             await _authViewModel.signIn(_userDto);
                         setState(() {
@@ -118,8 +116,8 @@ class _SignInViewState extends State<SignInView> {
                           Navigator.of(context).pushNamed(PlantsView.routeName);
                         }
                       }, willBeDelayed: true),
-                      _spacing(),
 
+                      if (!_isDtoValid) _spacing(),
                       if (!_isDtoValid)
                         const Center(
                           child: Text(

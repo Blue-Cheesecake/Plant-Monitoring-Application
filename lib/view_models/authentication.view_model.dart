@@ -40,7 +40,6 @@ class AuthenticationViewModel {
         email: userRegistModel.email,
         password: userRegistModel.password,
       );
-      _authenticationProvider.setUser(userCredential.user);
 
       final userDataModel = UserDataModel(
         userRegistModel.email,
@@ -57,7 +56,10 @@ class AuthenticationViewModel {
             toFirestore: (value, options) => userDataModel.toFirestore(),
           )
           .doc("${userDataModel.hashCode}");
+
       docRef.set(userDataModel);
+      _authenticationProvider.setUser(userCredential.user);
+      _authenticationProvider.setCurrentUserDocId("${userDataModel.hashCode}");
 
       return true;
     } on FirebaseAuthException catch (e) {
@@ -83,8 +85,11 @@ class AuthenticationViewModel {
       await Future.delayed(const Duration(seconds: 1));
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: userDto.email, password: userDto.password);
-      _authenticationProvider.setUser(userCredential.user);
       log("Successfully Login");
+
+      _authenticationProvider.setUser(userCredential.user);
+      log("${userDto.hashCode}");
+      _authenticationProvider.setCurrentUserDocId("${userDto.hashCode}");
 
       return true;
     } on FirebaseAuthException catch (e) {

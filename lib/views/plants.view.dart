@@ -3,6 +3,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:wireless_project/shared/theme/app.theme.dart';
 import 'package:wireless_project/views/device_regist.view.dart';
 import 'package:wireless_project/widgets/log_out_button.widget.dart';
+import 'package:wireless_project/widgets/plants_grid.widget.dart';
 
 class PlantsView extends StatelessWidget {
   const PlantsView({super.key});
@@ -22,8 +23,8 @@ class PlantsView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.only(
           top: 36,
-          left: 47,
-          right: 47,
+          left: 27,
+          right: 27,
         ),
         child: Column(
           children: [
@@ -33,9 +34,7 @@ class PlantsView extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline2,
               ),
             ),
-
-            // TODO: Insert grid here
-            //
+            const PlantsGridWidget(),
           ],
         ),
       ),

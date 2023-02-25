@@ -21,7 +21,9 @@ class UserDataModel {
       data?['fullname'],
       data?['gender'],
       data?['username'],
-      devices is Iterable ? List<Device>.from(devices) : null,
+      devices is Iterable
+          ? List<Device>.from(devices.map((e) => Device.fromJson(e)))
+          : null,
     );
   }
 
@@ -34,12 +36,40 @@ class UserDataModel {
       'devices': devices ?? [],
     };
   }
+
+  @override
+  String toString() {
+    return "Email: $email\nDevices: $devices";
+  }
 }
 
 class Device {
   final String? deviceId;
   final String? imagePath;
   final DateTime? addedAt;
+  final String? plantName;
 
-  Device(this.deviceId, this.imagePath, this.addedAt);
+  Device(this.deviceId, this.imagePath, this.addedAt, this.plantName);
+  factory Device.fromJson(Map<String, dynamic> json) {
+    return Device(
+      json['deviceId'],
+      json['imagePath'],
+      json['addedAt'].toDate(),
+      json['plantName'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'deviceId': deviceId,
+      'imagePath': imagePath,
+      'addedAt': addedAt != null ? Timestamp.fromDate(addedAt!) : null,
+      'plantName': plantName
+    };
+  }
+
+  @override
+  String toString() {
+    return "deviceId: $deviceId, Plant Name: $plantName";
+  }
 }

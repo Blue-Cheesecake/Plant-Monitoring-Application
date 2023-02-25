@@ -32,6 +32,7 @@ class UserRegistModel {
         password.isEmpty;
   }
 
+  // Use this hashcode for user document id
   @override
   int get hashCode => email.hashCode ^ password.hashCode;
 
