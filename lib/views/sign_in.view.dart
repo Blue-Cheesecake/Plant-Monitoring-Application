@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wireless_project/models/user_dto.model.dart';
+import 'package:wireless_project/view_models/authentication.view_model.dart';
 import 'package:wireless_project/views/plants.view.dart';
 import 'package:wireless_project/views/sign_up.view.dart';
 import 'package:wireless_project/widgets/info_form.widget.dart';
@@ -16,8 +17,15 @@ class SignInView extends StatefulWidget {
 
 class _SignInViewState extends State<SignInView> {
   final _formKey = GlobalKey<FormState>();
-
   final _userDto = UserDtoModel();
+  late AuthenticationViewModel _authViewModel;
+  bool _isDtoValid = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _authViewModel = AuthenticationViewModel(context);
+  }
 
   SizedBox _spacing() => const SizedBox(height: 15);
 
@@ -80,7 +88,7 @@ class _SignInViewState extends State<SignInView> {
 
                       /// -- Sign in Button
                       ///
-                      PrimaryButtonWidget("SIGN IN", () {
+                      PrimaryButtonWidget("SIGN IN", () async {
                         // validate the input
                         bool isValid = _formKey.currentState!.validate();
 
@@ -88,17 +96,40 @@ class _SignInViewState extends State<SignInView> {
                           return;
                         }
 
+                        setState(() {
+                          _isDtoValid = true;
+                        });
+
                         // save
                         _formKey.currentState?.save();
 
                         // Logging
                         _userDto.logCurrentInfo();
 
-                        // TODO: Log in and navigate to home page if valid
-                        // FIXME: This is just temporary entering plants view without any validation
+                        // FIXME: It navigate to plant view regardless of validation. Validate first
                         // Please use firebase to improve this
-                        Navigator.of(context).pushNamed(PlantsView.routeName);
+                        bool isEmailPassValid =
+                            await _authViewModel.signIn(_userDto);
+                        setState(() {
+                          _isDtoValid = isEmailPassValid;
+                        });
+                        if (_isDtoValid) {
+                          // ignore: use_build_context_synchronously
+                          Navigator.of(context).pushNamed(PlantsView.routeName);
+                        }
                       }, willBeDelayed: true),
+                      _spacing(),
+
+                      if (!_isDtoValid)
+                        const Center(
+                          child: Text(
+                            "Your email or password is incorrect",
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
 
                       /// -- Registration Navigation
                       ///

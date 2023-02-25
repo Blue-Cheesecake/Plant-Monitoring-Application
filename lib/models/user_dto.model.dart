@@ -11,4 +11,8 @@ class UserDtoModel {
         'Password: $password\n',
         time: DateTime.now());
   }
+
+  bool isAllEmpty() {
+    return email.isEmpty && password.isEmpty;
+  }
 }

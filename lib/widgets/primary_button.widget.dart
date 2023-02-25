@@ -65,12 +65,10 @@ class _PrimaryButtonWidgetState extends State<PrimaryButtonWidget> {
       _isLoading = true;
     });
 
-    await Future.delayed(const Duration(seconds: 1));
+    await widget.onPressedCallBack();
 
     setState(() {
       _isLoading = false;
     });
-
-    widget.onPressedCallBack();
   }
 }
