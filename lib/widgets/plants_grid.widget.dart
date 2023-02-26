@@ -41,11 +41,13 @@ class _PlantsGridWidgetState extends State<PlantsGridWidget> {
           itemCount: devices.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
+            childAspectRatio: 3 / 4,
             mainAxisSpacing: 5,
             crossAxisSpacing: 5,
           ),
           itemBuilder: (context, index) {
             return PlantCardWidget(
+              deviceId: devices[index].deviceId ?? "",
               plantName: devices[index].plantName ?? "",
               networkImagePath: devices[index].imagePath ?? "",
             );

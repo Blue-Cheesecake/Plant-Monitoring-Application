@@ -11,6 +11,6 @@ class AppRoutes {
     SignInView.routeName: (context) => const SignInView(),
     SignUpView.routeName: (context) => const SignUpView(),
     PlantsView.routeName: (context) => const PlantsView(),
-    PlantInfoView.routeName: (context) => const PlantInfoView(),
+    PlantInfoView.routeName: (context) => PlantInfoView(),
   };
 }
