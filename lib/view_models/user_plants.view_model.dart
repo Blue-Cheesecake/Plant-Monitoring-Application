@@ -65,12 +65,18 @@ class UserPlantViewModel {
           .child(
               "${_authenticationProvider.user!.uid}-${deviceRegistModel.plantName}.png");
 
-      // Actual uploading the file to the path
-      // FIXME: adjust the path of default image to be absolute path
-      await imageFolderRef.putFile(deviceRegistModel.imageFile);
+      bool useDefaultImage = deviceRegistModel.imageFile!.path ==
+          FirebaseCollectionPath.cloudStorage.defaultPlantImage;
+
+      if (!useDefaultImage) {
+        await imageFolderRef.putFile(deviceRegistModel.imageFile!);
+        log("Putted file on cloud storage");
+      }
 
       // Get the URL
-      String imageUrlCloudStorage = await imageFolderRef.getDownloadURL();
+      String imageUrlCloudStorage = useDefaultImage
+          ? FirebaseCollectionPath.cloudStorage.defaultPlantImage
+          : await imageFolderRef.getDownloadURL();
 
       // fetch user data from Firestore
       log("Update ID: ${_authenticationProvider.currentUserDocId!}");
