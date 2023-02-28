@@ -33,6 +33,8 @@ class AuthenticationViewModel {
       return false;
     }
 
+    log("UserRegist Hashcode: ${userRegistModel.hashCode}");
+
     try {
       await Future.delayed(const Duration(seconds: 1));
       UserCredential userCredential =
@@ -55,11 +57,12 @@ class AuthenticationViewModel {
             fromFirestore: UserDataModel.fromFirestore,
             toFirestore: (value, options) => userDataModel.toFirestore(),
           )
-          .doc("${userDataModel.hashCode}");
+          .doc("${userRegistModel.hashCode}");
 
       docRef.set(userDataModel);
       _authenticationProvider.setUser(userCredential.user);
-      _authenticationProvider.setCurrentUserDocId("${userDataModel.hashCode}");
+      _authenticationProvider
+          .setCurrentUserDocId("${userRegistModel.hashCode}");
 
       return true;
     } on FirebaseAuthException catch (e) {
@@ -81,6 +84,9 @@ class AuthenticationViewModel {
       log("Cannot log in: User DTO is all Empty");
       return false;
     }
+
+    log("UserDto Hashcode: ${userDto.hashCode}");
+
     try {
       await Future.delayed(const Duration(seconds: 1));
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
@@ -88,7 +94,6 @@ class AuthenticationViewModel {
       log("Successfully Login");
 
       _authenticationProvider.setUser(userCredential.user);
-      log("${userDto.hashCode}");
       _authenticationProvider.setCurrentUserDocId("${userDto.hashCode}");
 
       return true;
@@ -106,6 +111,7 @@ class AuthenticationViewModel {
   Future<void> signOut() async {
     await _auth.signOut();
     _authenticationProvider.setUser(null);
+    _authenticationProvider.setCurrentUserDocId(null);
     log("Signed out");
   }
 }
