@@ -20,23 +20,24 @@ class PlantsView extends StatelessWidget {
           LogOutButtonWidget(),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 36,
-          left: 47,
-          right: 47,
-        ),
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                "My plants",
-                style: Theme.of(context).textTheme.headline2,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 36,
+            horizontal: 47,
+          ),
+          child: Column(
+            children: [
+              Center(
+                child: Text(
+                  "My plants",
+                  style: Theme.of(context).textTheme.headline2,
+                ),
               ),
-            ),
-            const SizedBox(height: 36),
-            const PlantsGridWidget(),
-          ],
+              const SizedBox(height: 36),
+              const PlantsGridWidget(),
+            ],
+          ),
         ),
       ),
       floatingActionButton: SizedBox(

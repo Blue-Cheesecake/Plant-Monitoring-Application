@@ -45,6 +45,7 @@ class _PlantsGridWidgetState extends State<PlantsGridWidget> {
             List<Device> devices = userDataModel.devices!;
 
             return GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: devices.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

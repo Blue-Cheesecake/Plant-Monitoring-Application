@@ -34,123 +34,125 @@ class _DeviceRegistViewState extends State<DeviceRegistView> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(18),
-        child: Stack(
-          children: [
-            Card(
-              elevation: 8,
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 50,
-                  horizontal: 13,
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "Device Registration",
-                        style: Theme.of(context).textTheme.headline3,
-                      ),
-                      _spacing(),
-                      _spacing(),
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Card(
+                elevation: 8,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 50,
+                    horizontal: 13,
+                  ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "Device Registration",
+                          style: Theme.of(context).textTheme.headline3,
+                        ),
+                        _spacing(),
+                        _spacing(),
 
-                      /// IoT Device ID Field
-                      ///
-                      InfoFormWidget(
-                        "IoT device ID",
-                        Icons.developer_board,
-                        (newValue) {
-                          _deviceRegist.deviceId = newValue ?? "";
-                        },
-                      ),
-                      _spacing(),
+                        /// IoT Device ID Field
+                        ///
+                        InfoFormWidget(
+                          "IoT device ID",
+                          Icons.developer_board,
+                          (newValue) {
+                            _deviceRegist.deviceId = newValue ?? "";
+                          },
+                        ),
+                        _spacing(),
 
-                      /// Plant name Field
-                      ///
-                      InfoFormWidget(
-                        "Plant name",
-                        Icons.grid_goldenratio_outlined,
-                        (newValue) {
-                          _deviceRegist.plantName = newValue ?? "";
-                        },
-                      ),
-                      _spacing(),
-                      _spacing(),
+                        /// Plant name Field
+                        ///
+                        InfoFormWidget(
+                          "Plant name",
+                          Icons.grid_goldenratio_outlined,
+                          (newValue) {
+                            _deviceRegist.plantName = newValue ?? "";
+                          },
+                        ),
+                        _spacing(),
+                        _spacing(),
 
-                      const Text(
-                        "Plant pictures (if any)",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      _spacing(),
-                      ImagePickerWidget((xFile) {
-                        _deviceRegist.imageFile = File(xFile.path);
-                      }),
-                      _spacing(),
-                      _spacing(),
+                        const Text(
+                          "Plant pictures (if any)",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        _spacing(),
+                        ImagePickerWidget((xFile) {
+                          _deviceRegist.imageFile = File(xFile.path);
+                        }),
+                        _spacing(),
+                        _spacing(),
 
-                      PrimaryButtonWidget(
-                        "CONNECT",
-                        () async {
-                          // validate the inputs
-                          _formKey.currentState?.validate();
+                        PrimaryButtonWidget(
+                          "CONNECT",
+                          () async {
+                            // validate the inputs
+                            _formKey.currentState?.validate();
 
-                          // save
-                          _formKey.currentState?.save();
+                            // save
+                            _formKey.currentState?.save();
 
-                          setState(() {
-                            _isValidRegist = true;
-                          });
+                            setState(() {
+                              _isValidRegist = true;
+                            });
 
-                          // log(_deviceRegist.finalize().toString());
-                          // await Future.delayed(const Duration(seconds: 1));
-                          bool ret = await _userPlantViewModel
-                              .registerDevice(_deviceRegist.finalize());
+                            // log(_deviceRegist.finalize().toString());
+                            // await Future.delayed(const Duration(seconds: 1));
+                            bool ret = await _userPlantViewModel
+                                .registerDevice(_deviceRegist.finalize());
 
-                          setState(() {
-                            _isValidRegist = ret;
-                          });
+                            setState(() {
+                              _isValidRegist = ret;
+                            });
 
-                          if (_isValidRegist) {
-                            Navigator.of(context).pop();
-                          }
-                        },
-                        willBeDelayed: true,
-                      ),
-                      if (!_isValidRegist) _spacing(),
-                      if (!_isValidRegist)
-                        const Center(
-                          child: Text(
-                            "Error on device connection\nDevice Id might be incorrect",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.red,
+                            if (_isValidRegist) {
+                              Navigator.of(context).pop();
+                            }
+                          },
+                          willBeDelayed: true,
+                        ),
+                        if (!_isValidRegist) _spacing(),
+                        if (!_isValidRegist)
+                          const Center(
+                            child: Text(
+                              "Error on device connection\nDevice Id might be incorrect",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Colors.red,
+                              ),
                             ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 5,
-              right: 5,
-              child: IconButton(
-                splashRadius: 0.1,
-                onPressed: () => Navigator.of(context).pop(),
-                icon: Icon(
-                  Icons.cancel_sharp,
-                  color: AppTheme.color.primaryGreen,
-                  size: 30,
+              Positioned(
+                top: 5,
+                right: 5,
+                child: IconButton(
+                  splashRadius: 0.1,
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: Icon(
+                    Icons.cancel_sharp,
+                    color: AppTheme.color.primaryGreen,
+                    size: 30,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
