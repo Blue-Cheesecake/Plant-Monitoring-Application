@@ -48,7 +48,7 @@ class PlantsView extends StatelessWidget {
               // Show modal buttom sheet
               showCupertinoModalBottomSheet(
                 context: context,
-                builder: (context) => DeviceRegistView(),
+                builder: (context) => const DeviceRegistView(),
               );
             },
             backgroundColor: AppTheme.color.primaryGreen,

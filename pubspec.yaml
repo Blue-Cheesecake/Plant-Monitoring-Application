@@ -19,6 +19,7 @@ dependencies:
   firebase_auth: ^4.2.9
   provider: ^6.0.5
   cloud_firestore: ^4.4.3
+  firebase_storage: ^11.0.14
 
 dev_dependencies:
   flutter_test:
@@ -33,6 +34,7 @@ flutter:
 
   assets:
     - assets/images/welcome_tree.png
+    - assets/images/default_plant.jpg
     - assets/icons/calendar.png
     - assets/icons/email.png
     - assets/icons/id-card.png

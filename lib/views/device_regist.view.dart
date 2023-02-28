@@ -3,14 +3,29 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:wireless_project/models/device_regist.model.dart';
 import 'package:wireless_project/shared/theme/app.theme.dart';
+import 'package:wireless_project/view_models/user_plants.view_model.dart';
 import 'package:wireless_project/widgets/image_picker.widget.dart';
 import 'package:wireless_project/widgets/info_form.widget.dart';
 import 'package:wireless_project/widgets/primary_button.widget.dart';
 
-class DeviceRegistView extends StatelessWidget {
-  DeviceRegistView({Key? key}) : super(key: key);
+class DeviceRegistView extends StatefulWidget {
+  const DeviceRegistView({Key? key}) : super(key: key);
 
+  @override
+  State<DeviceRegistView> createState() => _DeviceRegistViewState();
+}
+
+class _DeviceRegistViewState extends State<DeviceRegistView> {
+  final _formKey = GlobalKey<FormState>();
   final _deviceRegist = DeviceRegistModel();
+  late UserPlantViewModel _userPlantViewModel;
+  bool _isValidRegist = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _userPlantViewModel = UserPlantViewModel(context);
+  }
 
   SizedBox _spacing() => const SizedBox(height: 13);
 
@@ -31,6 +46,7 @@ class DeviceRegistView extends StatelessWidget {
                   horizontal: 13,
                 ),
                 child: Form(
+                  key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -71,15 +87,51 @@ class DeviceRegistView extends StatelessWidget {
                       ),
                       _spacing(),
                       ImagePickerWidget((xFile) {
-                        _deviceRegist.imageUrl = File(xFile.path);
+                        _deviceRegist.imageFile = File(xFile.path);
                       }),
                       _spacing(),
                       _spacing(),
 
                       PrimaryButtonWidget(
                         "CONNECT",
-                        () {},
+                        () async {
+                          // validate the inputs
+                          _formKey.currentState?.validate();
+
+                          // save
+                          _formKey.currentState?.save();
+
+                          setState(() {
+                            _isValidRegist = true;
+                          });
+
+                          // log(_deviceRegist.finalize().toString());
+                          // await Future.delayed(const Duration(seconds: 1));
+                          bool ret = await _userPlantViewModel
+                              .registerDevice(_deviceRegist.finalize());
+
+                          setState(() {
+                            _isValidRegist = ret;
+                          });
+
+                          if (_isValidRegist) {
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        willBeDelayed: true,
                       ),
+                      if (!_isValidRegist) _spacing(),
+                      if (!_isValidRegist)
+                        const Center(
+                          child: Text(
+                            "Error on device connection\nDevice Id might be incorrect",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ),

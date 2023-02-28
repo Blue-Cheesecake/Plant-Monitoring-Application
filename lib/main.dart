@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wireless_project/providers/authentication.provider.dart';
+import 'package:wireless_project/providers/user_devices.provider.dart';
 import 'package:wireless_project/shared/routes/app.routes.dart';
 import 'package:wireless_project/shared/theme/app.theme.dart';
 
@@ -23,6 +24,7 @@ class Main extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthenticationProvider()),
+        ChangeNotifierProvider(create: (context) => UserDevicesProvider()),
       ],
       child: MaterialApp(
         title: 'Wireless Communication Project',
