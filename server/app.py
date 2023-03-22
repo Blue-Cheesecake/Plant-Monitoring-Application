@@ -51,7 +51,8 @@ def send_data():
         return jsonify({"success": False, "message": "Request payload must be JSON"}), 400
 
 
-@app.route('/hello')
+# for testing
+@app.route('/')
 def test():
     device_ref = db.collection(u"devices").document(u"gtr398")
     doc = device_ref.get()
