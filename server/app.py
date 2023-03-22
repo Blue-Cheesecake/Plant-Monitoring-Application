@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -9,6 +10,8 @@ PRIVATE_KEY_FILE_NAME = "plant-monitoring-7517f-firebase-adminsdk-2b5mq-98887866
 PRIVATE_KEY_PATH = f"{os.getcwd()}/{PRIVATE_KEY_FILE_NAME}"
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*",
+            "methods": ["GET", "POST", "PUT", "DELETE"]}})
 
 cred = credentials.Certificate(PRIVATE_KEY_PATH)
 firebase_admin.initialize_app(cred)
@@ -48,17 +51,17 @@ def send_data():
         return jsonify({"success": False, "message": "Request payload must be JSON"}), 400
 
 
-# @app.route('/hello')
-# def test():
-#     device_ref = db.collection(u"devices").document(u"fwe123r")
-#     doc = device_ref.get()
-#     print(doc)
+@app.route('/hello')
+def test():
+    device_ref = db.collection(u"devices").document(u"gtr398")
+    doc = device_ref.get()
+    print(doc)
 
-#     if doc.exists:
-#         print(doc.to_dict())
-#         return doc.to_dict()
-#     return "No document"
+    if doc.exists:
+        print(doc.to_dict())
+        return doc.to_dict()
+    return "No document"
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
