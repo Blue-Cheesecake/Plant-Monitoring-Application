@@ -14,7 +14,7 @@ const char* password = "6c8fwslaunso";
 // Initialize DHT sensor.
 DHT dht(DHTPIN, DHTTYPE);
 
-String serverName = "http://ip.dechhkung.me:5000/send_data";
+String serverName = "http://ip.dechhkung.me:9999/send_data";
 unsigned long lastTime = 0;
 // Timer set to 10 minutes (600000)
 //unsigned long timerDelay = 600000;
