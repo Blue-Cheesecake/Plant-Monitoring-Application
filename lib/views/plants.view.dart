@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:wireless_project/shared/theme/app.theme.dart';
 import 'package:wireless_project/views/device_regist.view.dart';
 import 'package:wireless_project/widgets/log_out_button.widget.dart';
@@ -31,7 +30,7 @@ class PlantsView extends StatelessWidget {
               Center(
                 child: Text(
                   "My plants",
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),
               const SizedBox(height: 36),
@@ -47,10 +46,7 @@ class PlantsView extends StatelessWidget {
           child: FloatingActionButton(
             onPressed: () {
               // Show modal buttom sheet
-              showCupertinoModalBottomSheet(
-                context: context,
-                builder: (context) => const DeviceRegistView(),
-              );
+              Navigator.of(context).pushNamed(DeviceRegistView.routeName);
             },
             backgroundColor: AppTheme.color.primaryGreen,
             child: const Icon(

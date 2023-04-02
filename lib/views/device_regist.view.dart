@@ -10,6 +10,7 @@ import 'package:wireless_project/widgets/primary_button.widget.dart';
 
 class DeviceRegistView extends StatefulWidget {
   const DeviceRegistView({Key? key}) : super(key: key);
+  static const routeName = "/device-regist";
 
   @override
   State<DeviceRegistView> createState() => _DeviceRegistViewState();
@@ -32,6 +33,7 @@ class _DeviceRegistViewState extends State<DeviceRegistView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: SingleChildScrollView(
@@ -54,7 +56,7 @@ class _DeviceRegistViewState extends State<DeviceRegistView> {
                       children: [
                         Text(
                           "Device Registration",
-                          style: Theme.of(context).textTheme.headline3,
+                          style: Theme.of(context).textTheme.displaySmall,
                         ),
                         _spacing(),
                         _spacing(),

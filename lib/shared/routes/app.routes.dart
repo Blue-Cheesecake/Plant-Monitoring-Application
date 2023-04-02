@@ -1,3 +1,4 @@
+import 'package:wireless_project/views/device_regist.view.dart';
 import 'package:wireless_project/views/home.view.dart';
 import 'package:wireless_project/views/plant_info.view.dart';
 import 'package:wireless_project/views/plants.view.dart';
@@ -12,5 +13,6 @@ class AppRoutes {
     SignUpView.routeName: (context) => const SignUpView(),
     PlantsView.routeName: (context) => const PlantsView(),
     PlantInfoView.routeName: (context) => PlantInfoView(),
+    DeviceRegistView.routeName: (context) => const DeviceRegistView(),
   };
 }
