@@ -25,8 +25,8 @@ class AuthenticationViewModel {
   /// The registration method used in only Sign up view
   ///
   /// Return [True] if successfully register, othereise [False]
-  /// In this case, We use [hashcode] generated from email and password with
-  /// the help of [Equatable] package for setting the Id of document.
+  /// In this case, We use [hashcode] generated from email and password
+  /// for setting the Id of document.
   Future<bool> signUp(UserRegistModel userRegistModel) async {
     if (userRegistModel.isAllEmpty()) {
       log("Cannot sign up: Some elements are empty");
