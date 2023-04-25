@@ -8,8 +8,8 @@ class DetectedData {
   factory DetectedData.fromJson(Map<String, dynamic> json) {
     return DetectedData(
       json['detectedAt'].toDate(),
-      json['humidity'],
-      json['temperature'],
+      double.tryParse(json['humidity'].toString()),
+      double.tryParse(json['temperature'].toString()),
     );
   }
 
